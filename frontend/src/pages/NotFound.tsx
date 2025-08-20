@@ -1,28 +1,45 @@
 import { Button } from '@/components/ui/button'
+import { ArrowLeft } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
-import { Ghost } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export function NotFound() {
-  const navigate = useNavigate()
   return (
-    <div className="min-h-[70vh] flex flex-col items-center justify-center text-center">
+    <section className="flex flex-col items-center justify-center min-h-[70vh] text-center p-6">
       <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-6"
+        initial={{ scale: 0.85, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+        className="mb-8"
       >
-        <div className="rounded-full bg-indigo-100 p-6 mb-4 inline-block">
-          <Ghost size={48} className="text-indigo-600 animate-bounce" />
-        </div>
-        <h2 className="font-orbitron text-4xl font-bold mb-2 text-indigo-700">404: Block Not Found!</h2>
-        <p className="font-roboto text-lg text-gray-500 mb-4 max-w-md mx-auto">
-          Oops! The piece you're looking for doesn't fit here. Try dropping by our home base.
-        </p>
-        <Button id="back-to-home-btn" onClick={() => navigate('/')} className="mt-2 px-6 py-3 font-orbitron text-base">
-          Return Home
-        </Button>
+        <img
+          src="/branding/assets/logo-2.png"
+          className="h-20 w-20 mx-auto drop-shadow-lg"
+        />
       </motion.div>
-    </div>
+      <motion.h1
+        className="font-orbitron text-5xl font-bold text-primary mb-4 tracking-tight"
+        initial={{ y: -30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+      >
+        404
+      </motion.h1>
+      <motion.p
+        className="text-lg text-gray-600 dark:text-gray-300 max-w-md mb-6"
+        initial={{ y: 30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
+        Oops! Looks like you've drifted outside the Tetris playfield.<br />
+        Let's get you back to the blocks!
+      </motion.p>
+      <Button asChild id="notfound-back-home" className="flex items-center gap-2">
+        <Link to="/">
+          <ArrowLeft className="h-5 w-5" />
+          Back to Home
+        </Link>
+      </Button>
+    </section>
   )
 }
